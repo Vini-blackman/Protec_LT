@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste - SEP</title>
+  <style>
+    body { background: #0d1117; color: #fff; font-family: system-ui; padding: 40px; }
+    .status { padding: 20px; margin: 10px 0; border-radius: 8px; }
+    .ok { background: #238636; }
+    .error { background: #da3633; }
+    .loading { background: #1f6feb; }
+    button { padding: 12px 24px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🔧 Teste de Carregamento - SEP</h1>
+  
+  <div id="react-status" class="status loading">⏳ Carregando React...</div>
+  <div id="babel-status" class="status loading">⏳ Carregando Babel...</div>
+  <div id="lucide-status" class="status loading">⏳ Carregando Lucide Icons...</div>
+  <div id="app-status" class="status loading">⏳ Aguardando...</div>
+  
+  <div id="root" style="margin-top: 30px; padding: 20px; border: 2px dashed #30363d; border-radius: 8px;">
+    <p style="color: #8b949e;">Área do App React</p>
+  </div>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script>
+    if (window.React) {
+      document.getElementById('react-status').className = 'status ok';
+      document.getElementById('react-status').textContent = '✅ React carregado! Versão: ' + React.version;
+    } else {
+      document.getElementById('react-status').className = 'status error';
+      document.getElementById('react-status').textContent = '❌ React NÃO carregou';
+    }
+  </script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    if (window.Babel) {
+      document.getElementById('babel-status').className = 'status ok';
+      document.getElementById('babel-status').textContent = '✅ Babel carregado!';
+    } else {
+      document.getElementById('babel-status').className = 'status error';
+      document.getElementById('babel-status').textContent = '❌ Babel NÃO carregou';
+    }
+  </script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
+  <script>
+    if (window.lucideReact) {
+      document.getElementById('lucide-status').className = 'status ok';
+      document.getElementById('lucide-status').textContent = '✅ Lucide Icons carregado!';
+    } else {
+      document.getElementById('lucide-status').className = 'status error';
+      document.getElementById('lucide-status').textContent = '❌ Lucide Icons NÃO carregou';
+    }
+  </script>
+
+  <!-- Teste de JSX simples -->
+  <script type="text/babel">
+    const { useState } = React;
+    const { Zap } = lucideReact;
+    
+    function TestApp() {
+      const [count, setCount] = useState(0);
+      
+      return (
+        <div style={{ background: '#161b22', padding: '20px', borderRadius: '8px' }}>
+          <h2 style={{ color: '#f97316', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Zap size={24} /> SEP - Teste Funcionando!
+          </h2>
+          <p style={{ color: '#8b949e', marginTop: '10px' }}>
+            Se você está vendo isso, React + Babel + Lucide estão funcionando!
+          </p>
+          <button onClick={() => setCount(c => c + 1)} style={{ marginTop: '15px', padding: '10px 20px', background: '#238636', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+            Clicou {count} vezes
+          </button>
+        </div>
+      );
+    }
+    
+    try {
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<TestApp />);
+      document.getElementById('app-status').className = 'status ok';
+      document.getElementById('app-status').textContent = '✅ App React renderizado com sucesso!';
+    } catch (err) {
+      document.getElementById('app-status').className = 'status error';
+      document.getElementById('app-status').textContent = '❌ Erro: ' + err.message;
+      console.error(err);
+    }
+  </script>
+</body>
+</html>
